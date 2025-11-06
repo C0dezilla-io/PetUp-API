@@ -2,6 +2,7 @@
   "name": "petup-api",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +11,10 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mongoose": "^8.19.2",
+    "mongoose-sequence": "^6.0.1",
     "mysql2": "^3.15.3",
     "node": "^22.21.0"
   }

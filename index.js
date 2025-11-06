@@ -1,11 +1,25 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
+import express from "express";
+import cors from "cors";
+import { connectDB } from "./db/connection.js";
 const port = 3000;
 
-const rootRouter = require("./routes/root.js");
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Rota raiz
+import rootRouter from "./routes/root.js";
 app.use("/", rootRouter);
 
-app.listen(port, () => {
-    console.log("Servidor rodando em 127.0.0.1:" + port);
-});
+// Rota para usuários
+import usuariosRouter from "./routes/usuariosRouter.js";
+app.use("/api/usuarios", usuariosRouter)
+
+try {
+    await connectDB();
+    app.listen(port)
+    console.log("Servidor rodando na porta: " + port);
+}
+catch (error) {
+    console.log("Erro: " + error.message);
+}
