@@ -15,6 +15,10 @@ app.use("/", rootRouter);
 import usuariosRouter from "./routes/usuariosRouter.js";
 app.use("/api/usuarios", usuariosRouter)
 
+// Rota para validações
+import validatorRouter from "./routes/validatorRouter.js";
+app.use("/api/validators", validatorRouter);
+
 try {
     await connectDB();
     app.listen(port)
