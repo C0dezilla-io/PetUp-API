@@ -6,10 +6,11 @@ const AutoIncrement = mongooseSequence(mongoose);
 export const usuarioSchema = new Schema ({
     userId: { type: Number, unique: true },
     nome: { type: String, required: true },
-    email: { type: String, required: true }, 
+    email: { type: String, required: true, unique: true }, 
     senha: { type: String, required: true },
     telefone: { type: String, required: true },
-    endereco: { type: String, required: true },
+    cep: { type: String, required: true },
+    numero: { type: Number, required: true },
     documento: { type: String, required: true },
     tipo_usuario: {
         is_adm: { type: Boolean, default: false },

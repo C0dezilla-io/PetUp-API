@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 
 // Create
 export async function criarUsuario(req, res) {
-    const { nome, email, senha, telefone, endereco, documento, tipo_usuario } = req.body;
-    const dados = { nome, email, senha, telefone, endereco, documento, tipo_usuario };
+    const { nome, email, senha, telefone, cep, numero, documento, tipo_usuario } = req.body;
+    const dados = { nome, email, senha, telefone, cep, numero, documento, tipo_usuario };
 
     dados.senha = await bcrypt.hash(dados.senha, 10);
 
