@@ -1,9 +1,12 @@
 import * as usuarioServices from "../services/usuariosService.js";
+import bcrypt from "bcrypt";
 
 // Create
 export async function criarUsuario(req, res) {
     const { nome, email, senha, telefone, endereco, documento, tipo_usuario } = req.body;
     const dados = { nome, email, senha, telefone, endereco, documento, tipo_usuario };
+
+    dados.senha = await bcrypt.hash(dados.senha, 10);
 
     try {
         const newUsuario = await usuarioServices.CriarUsuario(dados);
@@ -52,6 +55,10 @@ export async function alterarUsuario(req, res) {
     try {
         const id = req.params.id;
         const dados = req.body;
+
+        if(dados.senha) {
+            dados.senha = await bcrypt.hash(dados.senha, 10);
+        }
 
         const alterUsuario = await usuarioServices.AlterarUsuario(id, dados);
 
