@@ -7,23 +7,48 @@ export async function CriarAnimal( dados ) {
 }
 
 // Read All
-export async function ListarAnimais() {
-    return await Animal.find({});
+export async function ListarAnimais(is_adotado = null) {
+    const filtro = {};
+
+    if(is_adotado !== null && is_adotado !== undefined) {
+        const status = (is_adotado === "true");
+        filtro.is_adotado = status;
+    }
+
+    return await Animal.find(filtro);
 }
 
 // Read All === responsavelId
-export async function ListarAnimaisPorResponsavel(id) {
-    return await Animal.find({ "responsavel.responsavelId": id });
+export async function ListarAnimaisPorResponsavel(id, is_adotado = null) {
+    const filtro = {
+        "responsavel.responsavelId": Number(id)
+    };
+
+    if(is_adotado !== null && is_adotado !== undefined) {
+        const status = (is_adotado === "true");
+        filtro.is_adotado = status;
+    }
+
+    return await Animal.find(filtro);
 }
 
 // Read All === location
-export async function ListarAnimaisPorLocalizacao(termo) {
-    return await Animal.find({
+export async function ListarAnimaisPorLocalizacao(termo, is_adotado = null) {
+    const termoInsensitivo = new RegExp(termo, 'i');
+    const orQuery = {
         $or: [
-            { "localizacao.cidade": termo },
-            { "localizacao.estado": termo }
+            { "localizacao.cidade": termoInsensitivo },
+            { "localizacao.estado": termoInsensitivo }
         ]
-    });
+    };
+    const filtro = [orQuery];
+
+    if(is_adotado !== null && is_adotado !== undefined) {
+        const status = (is_adotado === "true");
+        filtro.push ({ is_adotado: status });
+    }
+
+    return await Animal.find({ $and: filtro });
 }
 
 // Read Only one

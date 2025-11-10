@@ -45,7 +45,9 @@ export async function criarAnimal(req, res) {
 // Read All
 export async function listarAnimais(req, res) {
     try {
-        const animais = await AnimalServices.ListarAnimais();
+        const is_adotado = req.query.is_adotado;
+
+        const animais = await AnimalServices.ListarAnimais(is_adotado);
         return res.status(200).json( animais );
     }
     catch {
@@ -58,7 +60,9 @@ export async function listarAnimais(req, res) {
 export async function listarAnimaisPorResponsavel(req, res) {
     try {
         const id = req.params.id;
-        const animais = await AnimalServices.ListarAnimaisPorResponsavel(id);
+        const is_adotado = req.query.is_adotado;
+
+        const animais = await AnimalServices.ListarAnimaisPorResponsavel(id, is_adotado);
 
         if(!animais) {
             return res.status(404).json({ mensagem: "Responsável informado não existe." });
@@ -87,7 +91,9 @@ export async function listarAnimaisPorLocalizacao(req, res) {
             termo = estado;
         }
 
-        const animais = await AnimalServices.ListarAnimaisPorLocalizacao(termo);
+        const is_adotado = req.query.is_adotado;
+
+        const animais = await AnimalServices.ListarAnimaisPorLocalizacao(termo, is_adotado);
 
         if(!animais) {
             return res.status(404).json({ mensagem: "Responsável informado não existe." });
