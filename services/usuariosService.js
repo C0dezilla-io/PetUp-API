@@ -26,6 +26,6 @@ export async function AlterarUsuario(id, dados) {
 }
 
 // Delete
-export async function deletarUsuario(id) {
+export async function DeletarUsuario(id) {
     return await Usuario.findOneAndDelete({ userId: Number(id) });
 }

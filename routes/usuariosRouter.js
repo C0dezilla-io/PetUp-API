@@ -1,5 +1,6 @@
 import * as usuarioControllers from "../controllers/usuariosController.js";
 import { validarToken } from "../validators/tokenValidator.js";
+import { verificarPermissao } from "../validators/permissionValidator.js";
 import express from "express";
 const router = express.Router();
 

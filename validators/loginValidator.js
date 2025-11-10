@@ -35,7 +35,8 @@ export async function validarLogin(req, res) {
 
         const payload = {
             userId:usuario.userId,
-            tipo: tipoUsuario
+            tipo: tipoUsuario,
+            cep: usuario.localizacao.cep
         };
 
         // Gera o token utilizando o userId e o tipo_usuario true, que expira em 1 dia
