@@ -14,6 +14,7 @@ export const animalSchema = new Schema({
     idade: { type: Number, required: true },
     peso: { type: Number, required: false },
     porte: { type: String, required: true },
+    caminhoFoto: { type: String, required: false },
     responsavel: {
         responsavelId: Number,
         tipo_usuario: String

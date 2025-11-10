@@ -1,11 +1,12 @@
 import * as animalControllers from "../controllers/animaisController.js";
 import { validarToken } from "../validators/tokenValidator.js";
 import { verificarPermissao } from "../validators/permissionValidator.js";
+import { uploadAnimal } from "../services/utilsService.js";
 import express from "express";
 const router = express.Router();
 
 // Create
-router.post("/", validarToken, animalControllers.criarAnimal);
+router.post("/", validarToken, uploadAnimal, animalControllers.criarAnimal);
 
 // Read All
 router.get("/", validarToken, animalControllers.listarAnimais);

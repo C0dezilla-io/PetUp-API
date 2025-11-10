@@ -1,5 +1,5 @@
 import * as usuarioServices from "../services/usuariosService.js";
-import { BuscarEnderecoPorCep } from "../services/localizacaoService.js";
+import { BuscarEnderecoPorCep } from "../services/utilsService.js";
 import bcrypt from "bcrypt";
 
 // Create

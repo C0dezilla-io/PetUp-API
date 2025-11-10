@@ -1,11 +1,12 @@
 import * as AnimalServices from "../services/animaisService.js";
-import { BuscarEnderecoPorCep } from "../services/localizacaoService.js";
+import { BuscarEnderecoPorCep } from "../services/utilsService.js";
 
 // Create
 export async function criarAnimal(req, res) {
     const { nome, raca, especie, is_adotado, sobre, sexo, idade, peso, porte } = req.body;
     
     const enderecoInfo = await BuscarEnderecoPorCep(req.user.cep);
+    const caminhoFoto = req.file ? req.file.path : null;
 
     const dados = { 
         nome,
@@ -18,6 +19,8 @@ export async function criarAnimal(req, res) {
         peso,
         porte,
 
+        caminhoFoto,
+        
         responsavel: {
             responsavelId: req.user.userId,
             tipo_usuario: req.user.tipo
