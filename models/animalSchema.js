@@ -28,8 +28,8 @@ export const animalSchema = new Schema({
 });
 
 animalSchema.plugin(AutoIncrement, {
-    id: "animal-counter",
-    inc_field: "animalId"
+  id: "animal-counter",
+  inc_field: "animalId",
 });
 
 export const Animal = mongoose.model("Animal", animalSchema, "animais");
