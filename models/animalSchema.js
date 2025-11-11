@@ -11,8 +11,8 @@ export const animalSchema = new Schema({
   is_adotado: { type: Boolean, default: false },
   sobre: { type: String, required: false },
   sexo: { type: String, required: true },
-  idade: { type: String, required: true },
-  peso: { type: String, required: false },
+  idade: { type: Number, required: true },
+  peso: { type: Number, required: false },
   porte: { type: String, required: true },
   caminhoFoto: { type: String, required: false },
   responsavel: {
