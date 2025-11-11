@@ -8,10 +8,13 @@ const router = express.Router();
 router.post("/", usuarioControllers.criarUsuario);
 
 // Read All
-router.get("/", validarToken, usuarioControllers.listarUsuarios);
+router.get("/", usuarioControllers.listarUsuarios);
+
+// Read All === location
+router.get("/localizacao/", usuarioControllers.listarUsuariosPorLocalizacao);
 
 // Read Only one
-router.get("/:id", validarToken, usuarioControllers.listarUsuarioPorId);
+router.get("/:id", usuarioControllers.listarUsuarioPorId);
 
 // Update
 router.patch("/:id", validarToken, usuarioControllers.alterarUsuario);

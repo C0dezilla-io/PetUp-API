@@ -7,8 +7,34 @@ export async function CriarUsuario( dados ) {
 }
 
 // Read All
-export async function ListarUsuarios() {
-    return await Usuario.find({});
+export async function ListarUsuarios(is_ong = null) {
+    let filtro = {};
+
+    if(is_ong !== null && is_ong !== undefined) {
+        const status = (is_ong === "true");
+        filtro = { "tipo_usuario.is_ong": status };
+    }
+
+    return await Usuario.find(filtro);
+}
+
+// Read All === location
+export async function ListarUsuariosPorLocalizacao(termo, is_ong = null) {
+    const termoInsensitivo = new RegExp(termo, 'i');
+    const orQuery = {
+        $or: [
+            { "localizacao.cidade": termoInsensitivo },
+            { "localizacao.estado": termoInsensitivo }
+        ]
+    };
+    const filtro = [orQuery];
+
+    if(is_ong !== null && is_ong !== undefined) {
+        const status = (is_ong === "true");
+        filtro.push ({ "tipo_usuario.is_ong": status });
+    }
+
+    return await Usuario.find({ $and: filtro });
 }
 
 // Read Only one

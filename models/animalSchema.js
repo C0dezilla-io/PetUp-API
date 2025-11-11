@@ -17,6 +17,7 @@ export const animalSchema = new Schema({
     caminhoFoto: { type: String, required: false },
     responsavel: {
         responsavelId: Number,
+        nome: String,
         tipo_usuario: String
     },
     localizacao: {

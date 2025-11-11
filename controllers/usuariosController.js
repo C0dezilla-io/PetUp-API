@@ -46,11 +46,42 @@ export async function criarUsuario(req, res) {
 // Read All
 export async function listarUsuarios(req, res) {
     try {
-        const usuarios = await usuarioServices.ListarUsuarios();
+        const is_ong = req.query.is_ong;
+
+        const usuarios = await usuarioServices.ListarUsuarios(is_ong);
+
         return res.status(200).json( usuarios );
     }
     catch(error) {
         console.error("Erro ao listar usuários: ", error);
+        return res.status(500).json({ mensagem: "Erro ao listar usuários. Por segurança, tente novamente." });
+    }
+}
+
+// Read All === location
+export async function listarUsuariosPorLocalizacao(req, res) {
+    try {
+        const { cidade, estado } = req.body;
+        let termo = "";
+        if(cidade) {
+            termo = cidade;
+        }
+        else {
+            termo = estado;
+        }
+
+        const is_ong = req.query.is_ong;
+
+        const usuarios = await usuarioServices.ListarUsuariosPorLocalizacao(termo, is_ong);
+
+        if(!usuarios) {
+            return res.status(404).json({ mensagem: "Nenhum usuário encontrado com esses critérios." });
+        }
+
+        return res.status(200).json( usuarios );
+    }
+    catch(error) {
+        console.error("Erro ao listar usuários:", error);
         return res.status(500).json({ mensagem: "Erro ao listar usuários. Por segurança, tente novamente." });
     }
 }

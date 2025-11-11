@@ -9,16 +9,16 @@ const router = express.Router();
 router.post("/", validarToken, uploadAnimal, animalControllers.criarAnimal);
 
 // Read All
-router.get("/", validarToken, animalControllers.listarAnimais);
+router.get("/", animalControllers.listarAnimais);
 
 // Read All === responsavelId
-router.get("/responsavel/:id", validarToken, animalControllers.listarAnimaisPorResponsavel);
+router.get("/responsavel/:id", animalControllers.listarAnimaisPorResponsavel);
 
 // Read All === location
-router.get("/localizacao/", validarToken, animalControllers.listarAnimaisPorLocalizacao);
+router.get("/localizacao/", animalControllers.listarAnimaisPorLocalizacao);
 
 // Read Only one
-router.get("/:id", validarToken, animalControllers.listarAnimalPorId);
+router.get("/:id", animalControllers.listarAnimalPorId);
 
 // Update
 router.patch("/:id", validarToken, animalControllers.alterarAnimal);
