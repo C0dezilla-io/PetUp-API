@@ -14,15 +14,16 @@ export async function validarToken(req, res, next) {
     // Quebra o texto do header para pegar só o token
     const token = authHeader.split(" ")[1];
 
-    try {
-        // Descriptografia do token
-        const dados = await jwt.verify(token, JWT_SECRET);
-
+    // Descriptografia do token
+    jwt.verify(token, JWT_SECRET, (error, dados) => {
+        if(error && error.name === "TokenExpiredError") {
+            return res.status(403).json({ mensagem: "Token expirado. Por segurança, faça login novamente." });
+        }
+        else if(error) {
+            return res.status(403).json({ mensagem: "Token inválido." });
+        }
+        
         req.user = dados;
-
         next();
-    }
-    catch(error) {
-        return res.status(403).json({ mensagem: "Token inválido ou expirado." });
-    }
+    });
 }
