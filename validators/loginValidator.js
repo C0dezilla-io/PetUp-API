@@ -45,6 +45,7 @@ export async function validarLogin(req, res) {
         return res.status(200).json({
             mensagem: "Login realizado com sucesso.",
             token,
+            userId: usuario.userId,
             tipo_usuario: tipoUsuario
         });
     }
