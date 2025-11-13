@@ -154,6 +154,7 @@ router.get("/", (req, res) => {
                                 <pre>{ "senha": "novaSenha123", "localizacao": { "cep": "01001000" } }</pre>
                             </td>
                         </tr>
+
                         <tr>
                             <td>/api/usuarios/<i>:id</i></td>
                             <td><strong>DELETE</strong></td>
@@ -287,6 +288,107 @@ router.get("/", (req, res) => {
                                 <pre>{ "mensagem": "Animal excluído com sucesso." }</pre>
                             </td>
                         </tr>
+
+                        <tr style="background-color: #a1ff9362;">
+                            <td>/api/adocoes</td>
+                            <td><strong>POST</strong></td>
+                            <td>Insere uma nova adoção. *Requer Token Válido.*</td>
+                            <td>
+                                <p><b>AUTHORIZATION (Header):</b></p>
+                                <pre>{ "Authorization": "Bearer seu.token.jwt" }</pre>
+
+                                <p><b>ENTRADA (Body):</b></p>
+                                <pre> 
+                                {
+                                    "animalId": 21,
+                                    "telefone": "125643265445",
+                                    "descricao_lar": "É uma casa daora.",
+                                    "possui_outro_animal": "true",
+                                    "porque_deseja_adotar": "Minha filha tá enxendo o saco."
+                                } 
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr style="background-color: #a1ff9362;">
+                            <td>/api/adocoes</td>
+                            <td><strong>GET</strong></td>
+                            <td>Lista todos as adoções feitas.</td>
+                            <td>
+                                <p><b>SAÍDA (Sucesso 200):</b></p>
+                                <pre>
+                                [ {
+                                    "_id": "6915d5410baad57179c0fed4",
+                                    "animalId": 21,
+                                    "userId": 13,
+                                    "telefone": "125643265445",
+                                    "estado": "MG",
+                                    "cidade": "Aguanil",
+                                    "descricao_lar": "É uma casa daora.",
+                                    "possui_outro_animal": true,
+                                    "porque_deseja_adotar": "Minha filha tá enxendo o saco.",
+                                    "criado": "2025-11-13T12:55:29.356Z",
+                                    "formularioId": 2,
+                                    "__v": 0
+                                } ]
+                                </pre>
+                            </td>
+                        </tr>
+
+                        <tr style="background-color: #a1ff9362;">
+                            <td>/api/adocoes/localizacao</td>
+                            <td><strong>GET</strong></td>
+                            <td>Lista as adoções por cidade ou estado.</td>
+                            <td>
+                                <p><b>ENTRADA (Body):</b></p>
+                                <pre>{ "cidade": "São Paulo" } OU { "estado": "SP" }</pre>
+
+                                <p><b>SAÍDA (Sucesso 200):</b></p>
+                                <pre>[ { animalId: 1, userId: 12, ... } ]</pre>
+                            </td>
+                        </tr>
+
+                        <tr style="background-color: #a1ff9362;">
+                            <td>/api/adocoes/<i>:id</i></td>
+                            <td><strong>GET</strong></td>
+                            <td>Lista a adoção com o ID correspondente.</td>
+                            <td>
+                                <p><b>PARÂMETROS (Path):</b> ID da adoção (formularioId).</p>
+
+                                <p><b>SAÍDA (Sucesso 200):</b></p>
+                                <pre>{ animalId: 1, userId: 12, ... }</pre>
+                            </td>
+                        </tr>
+
+                        <tr style="background-color: #a1ff9362;">
+                            <td>/api/adocoes/<i>:id</i></td>
+                            <td><strong>PATCH</strong></td>
+                            <td>Atualiza os dados da adoção. *Requer Token Válido.*</td>
+                            <td>
+                                <p><b>AUTHORIZATION (Header):</b></p>
+                                <pre>{ "Authorization": "Bearer seu.token.jwt" }</pre>
+
+                                <p><b>PARÂMETROS (Path):</b> ID da adoção (formularioId).</p>
+
+                                <p><b>ENTRADA (Body - Parcial):</b></p>
+                                <pre>{ "senha": "novaSenha123", "localizacao": { "cep": "01001000" } }</pre>
+                            </td>
+                        </tr>
+                        
+                        <tr style="background-color: #a1ff9362;">
+                            <td>/api/adocoes/<i>:id</i></td>
+                            <td><strong>DELETE</strong></td>
+                            <td>Exclui uma adoção pelo seu ID. *Requer Token Válido.*</td>
+                            <td>
+                                <p><b>AUTHORIZATION (Header):</b></p>
+                                <pre>{ "Authorization": "Bearer seu.token.jwt" }</pre>
+
+                                <p><b>PARÂMETROS (Path):</b> ID da adoção (formularioId).</p>
+
+                                <p><b>SAÍDA (Sucesso 200):</b></p>
+                                <pre>{ "mensagem": "Formulário excluído com sucesso." }</pre>
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </body>

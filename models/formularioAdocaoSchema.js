@@ -5,7 +5,8 @@ const AutoIncrement = mongooseSequence(mongoose);
 
 export const formularioAdocaoSchema = new Schema({
     formularioId: { type: Number, unique: true },
-
+    animalId: { type: Number, required: true },
+    userId: { type: Number, required: true },
     telefone: { type: String, required: true },
     estado: { type: String, required: true },
     cidade: { type: String, required: true },

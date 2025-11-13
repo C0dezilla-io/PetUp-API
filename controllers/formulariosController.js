@@ -1,16 +1,20 @@
 import * as FormularioServices from "../services/formulariosService.js";
+import { BuscarEnderecoPorCep } from "../services/utilsService.js";
 
 // === CREATE ===
 export async function criarFormulario(req, res) {
     try {
-        const { telefone, estado, cidade, descricao_lar, possui_outro_animal, porque_deseja_adotar } = req.body;
+        const { animalId, telefone, descricao_lar, possui_outro_animal, porque_deseja_adotar } = req.body;
+        const enderecoInfo = await BuscarEnderecoPorCep(req.user.cep);
 
         const dados = {
+            animalId,
+            userId: req.user.userId,
             telefone,
-            estado,
-            cidade,
+            estado: enderecoInfo.estado,
+            cidade: enderecoInfo.cidade,
             descricao_lar,
-            possui_outro_animal,
+            possui_outro_animal: (possui_outro_animal === "true"),
             porque_deseja_adotar
         };
 

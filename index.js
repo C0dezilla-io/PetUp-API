@@ -26,6 +26,10 @@ app.use("/api/usuarios", usuariosRouter);
 import animaisRouter from "./routes/animaisRouter.js";
 app.use("/api/animais", animaisRouter);
 
+// Rota para formulários de adoção
+import adocaoRouter from "./routes/formAdocaoRouter.js";
+app.use("/api/adocoes", adocaoRouter);
+
 // Rota para validações
 import validatorRouter from "./routes/validatorRouter.js";
 app.use("/api/validators", validatorRouter);
