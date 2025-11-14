@@ -13,6 +13,9 @@ router.get("/", adocaoController.listarFormularios);
 // Read All === location
 router.get("/localizacao/", adocaoController.listarFormulariosPorLocalizacao);
 
+// Read All === animalId
+router.get("/animal/:id", adocaoController.listarFormulariosPorAnimal);
+
 // Read Only one
 router.get("/:id", adocaoController.listarFormularioPorId);
 
