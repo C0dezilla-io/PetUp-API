@@ -27,7 +27,7 @@ export async function ListarFormulariosPorLocalizacao(termo) {
 
 // === READ BY ANIMAL ID ===
 export async function ListarFormulariosPorAnimal(id) {
-  return await FormularioAdocao.findAll({ animalId: Number(id) });
+  return await FormularioAdocao.find({ animalId: Number(id) });
 }
 
 // === UPDATE ===
