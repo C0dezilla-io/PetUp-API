@@ -1,6 +1,8 @@
 import * as AnimalServices from "../services/animaisService.js";
 import { BuscarEnderecoPorCep } from "../services/utilsService.js";
 import { ListarUsuarioPorId } from "../services/usuariosService.js";
+import fs from 'fs/promises';
+import { animalSchema } from "../models/animalSchema.js";
 
 // Create
 export async function criarAnimal(req, res) {
@@ -172,12 +174,28 @@ export async function alterarAnimal(req, res) {
     const id = req.params.id;
     const dados = req.body;
 
+    if(req.file) {
+
+      const oldAnimal = await AnimalServices.ListarAnimalPorId(id);
+      if (!oldAnimal) {
+        return res.status(404).json({ mensagem: "Animal não encontrado para alteração." });
+      }
+
+      dados.caminhoFoto = req.file.path;
+      
+      try {
+        // fs.unlink(caminho) deleta o arquivo no sistema de arquivos
+        await fs.unlink(oldAnimal.caminhoFoto);
+      } catch (error) {
+        // É comum o erro ENOENT (Arquivo não existe). Apenas registre e ignore.
+        console.error(`Aviso: Não foi possível deletar o arquivo antigo ${oldAnimal.caminhoFoto}. Erro: ${error.message}`);
+      }
+    }
+
     const alterAnimal = await AnimalServices.AlterarAnimal(id, dados);
 
     if (!alterAnimal) {
-      return res
-        .status(404)
-        .json({ mensagem: "Animal não encontrado para alteração." });
+      return res.status(404).json({ mensagem: "Animal não encontrado para alteração." });
     }
 
     return res.status(200).json(alterAnimal);

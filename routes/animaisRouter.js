@@ -21,7 +21,7 @@ router.get("/localizacao/", animalControllers.listarAnimaisPorLocalizacao);
 router.get("/:id", animalControllers.listarAnimalPorId);
 
 // Update
-router.patch("/:id", validarToken, animalControllers.alterarAnimal);
+router.patch("/:id", validarToken, uploadAnimal, animalControllers.alterarAnimal);
 
 // Delete
 router.delete("/:id", validarToken, animalControllers.deletarAnimal);
